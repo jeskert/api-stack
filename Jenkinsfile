@@ -6,7 +6,6 @@ node {
 stage 'Check env'
 node {
     sh "java -version"
-    sh "docker version"
 }
 
 stage 'Build and Unit test'
@@ -35,22 +34,6 @@ node {
     archive includes: "build/libs/*.jar"
     archive includes: "build/*"
 
-}
-
-stage 'Test Report'
-node {
-    unstash 'source'
-    dir("build") {
-        sh "ls -a"
-    }
-    publishHTML(target: [
-            allowMissing         : false,
-            alwaysLinkToLastBuild: false,
-            keepAll              : true,
-            reportDir            : 'build/reports/jacoco/html',
-            reportFiles          : 'index.html',
-            reportName           : "RCov Report"
-    ])
 }
 
 stage 'Artifact'
