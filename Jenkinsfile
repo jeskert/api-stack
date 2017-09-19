@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Checkout project') {
             steps {
-                git url: 'https://github.com/zjx-immersion/api-stack.git'
+                git url: 'https://github.com/jeskert/api-stack.git'
             }
         }
         stage ('Check env') {
@@ -61,17 +61,4 @@ pipeline {
             }
         }
     }
-}
-
-def archiveUnitTestResults() {
-    step([$class: "JUnitResultArchiver", testResults: "build/**/TEST-*.xml"])
-}
-
-def archiveCheckstyleResults() {
-    step([$class         : "CheckStylePublisher",
-          canComputeNew  : false,
-          defaultEncoding: "",
-          healthy        : "",
-          pattern        : "build/reports/checkstyle/main.xml",
-          unHealthy      : ""])
 }
